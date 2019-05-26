@@ -1,0 +1,15 @@
+version:3
+service: 
+  apiweb01:
+    image: my-image-web-01
+    build: .
+    ports: 
+      - "81:80"
+  apiweb02:
+    image: my-image-web-01
+    port:
+      - "82:80"
+  load-blancer:
+    image: nginx:latest
+    ports: 
+      - "80:80"
