@@ -57,8 +57,10 @@ service:
     ports: 
       - "80:80"
 ```
-
-
+###### Start the Docker 
+```
+Docker compose up -f docker-compose.yml
+```
 
 
 ```
@@ -118,3 +120,24 @@ https://docs.docker.com/v17.09/get-started/part2/#run-the-app
 
 ***ENSURE***
 If we you created in Replica mode.. Can you change to Global ? and Viseversa 
+
+######personal reference Remove Later From here
+```
+#Example App NodeJs to deploy in Docker Swarm
+https://github.com/docker/labs/tree/master/developer-tools/nodejs/porting/
+
+#Best Refer for 12 factor
+https://github.com/docker/labs/tree/master/12factor
+
+#Docker Compose Refer
+https://docs.docker.com/compose/samples-for-compose/
+
+#Voting App
+https://github.com/dockersamples/example-voting-app
+
+#NodeJs Docker Webapp
+https://nodejs.org/de/docs/guides/nodejs-docker-webapp/
+
+Best full Stack App Refer
+https://medium.com/@carminezaccagnino/top-4-cool-projects-to-build-to-enrich-your-full-stack-web-development-skills-8cbdd3673f43
+```  
