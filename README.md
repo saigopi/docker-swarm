@@ -22,6 +22,7 @@ docker swarm init --advertise-addr 192.168.99.100
 ```
 #####Dockerfile 
 ```
+#EXAMPLE-1
 #simple web server
 FROM centos:latest
 
@@ -41,6 +42,7 @@ ENTRYPOINT apachectl -DFOREGROUND
 #####Docker-compose file 
 ######note: Run this compose file where the Dockerfile need to be present.  
 ```
+#EXAMPLE-1
 version:3
 service: 
   apiweb01:
