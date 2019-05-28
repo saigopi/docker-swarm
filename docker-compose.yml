@@ -1,15 +1,15 @@
-version:3
-service: 
-  apiweb01:
-    image: my-image-web-01
-    build: .
-    ports: 
+version: "3.5"
+
+services:
+  webapi:
+    image: sixeyed/password-web:v1
+    ports:
       - "81:80"
-  apiweb02:
-    image: my-image-web-01
-    port:
-      - "82:80"
-  load-blancer:
-    image: nginx:latest
-    ports: 
-      - "80:80"
+    environment:
+      - PasswordApi:Url=http://password-api:5001
+    deploy:
+      replicas: 2
+  password-api:
+    image: sixeyed/password-api:v1
+    deploy:
+      replicas: 3

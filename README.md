@@ -1,4 +1,12 @@
 # docker-swarm
+
+
+
+```
+docker node inspect self --pretty
+```
+
+
 Intro to DockerSwarm Setup the cluster using the Vagrant and initialised the swarm 
 ```
 To see how to connect your Docker Client to the Docker Engine running on this virtual machine, run: docker-machine env master01
@@ -37,34 +45,70 @@ EXPOSE 80
 ENTRYPOINT apachectl -DFOREGROUND
 ```
 
-
-
-#####Docker-compose file 
+#####Docker-compose file  Demo-01
 ######note: Run this compose file where the Dockerfile need to be present.  
 ```
-#EXAMPLE-1
-version:3
-service: 
-  apiweb01:
-    image: my-image-web-01
-    build: .
-    ports: 
+version: "3"
+
+services:
+  webapi:
+    image: sixeyed/password-web:v1
+    ports:
       - "81:80"
-  apiweb02:
-    image: my-image-web-01
-    port:
-      - "82:80"
-  load-blancer:
-    image: nginx:latest
-    ports: 
-      - "80:80"
+    environment:
+      - PasswordApi:Url=http://password-api:5001
+  password-api:
+    image: sixeyed/password-api:v1
 ```
-###### Start the Docker 
+###### Start the Docker-compose 
 ```
 Docker compose up -f docker-compose.yml
 ```
 
+###### Start the Docker-stack using the same compose file
 
+```
+docker stack deploy -c docker-compose.yml web
+```
+###### Stack File Demo-02
+```
+version: "3"
+
+services:
+  webapi:
+    image: sixeyed/password-web:v1
+    ports:
+      - "81:80"
+    environment:
+      - PasswordApi:Url=http://password-api:5001
+    deploy:
+      replicas: 2
+  password-api:
+    image: sixeyed/password-api:v1
+    deploy:
+      replicas: 3
+```
+
+######Stack File Demo-03
+```
+version: "3.5"
+
+services:
+  webapi:
+    image: sixeyed/password-web:v1
+    ports:
+      - "81:80"
+    environment:
+      - PasswordApi:Url=http://password-api:5001
+    deploy:
+      replicas: 2
+  password-api:
+    image: sixeyed/password-api:v2
+    deploy:
+      replicas: 3
+```
+
+######Command EXAMPLES 
 ```
 docker service update --publish-add 8080:80 <service-name>
 ```
