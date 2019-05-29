@@ -11,7 +11,9 @@ services:
     secrets:
       - postgres_password
     networks:
-      - database
+      database:
+        aliases:
+          - db
     deploy:
       labels:
         #com.docker.ucp.access.label: "path"
@@ -31,3 +33,6 @@ secrets:
 networks:
   database:
     external: true
+
+
+
