@@ -82,11 +82,11 @@ services:
     environment:
       - PasswordApi:Url=http://password-api:5001
     deploy:
-      replicas: 2
+      replicas: 5
   password-api:
     image: sixeyed/password-api:v1
     deploy:
-      replicas: 3
+      replicas: 10
 ```
 
 ######Stack File Demo-03

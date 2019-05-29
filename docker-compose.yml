@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3"
 
 services:
   webapi:
@@ -8,8 +8,8 @@ services:
     environment:
       - PasswordApi:Url=http://password-api:5001
     deploy:
-      replicas: 2
+      replicas: 5
   password-api:
-    image: sixeyed/password-api:v1
+    image: sixeyed/password-api:v2
     deploy:
-      replicas: 3
+      replicas: 10

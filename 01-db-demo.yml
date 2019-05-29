@@ -1,0 +1,33 @@
+# Use postgres/example user/password credentials
+version: '3.5'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_DB: contacts
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets:
+      - postgres_password
+    networks:
+      - database
+    deploy:
+      labels:
+        #com.docker.ucp.access.label: "path"
+        com.docker.lb.hosts: master01
+        com.docker.lb.network: postgres_password
+        com.docker.lb.port: 5432
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2048M
+secrets:
+  postgres_password:
+    external: true
+    name: dev_env_appdb01
+
+networks:
+  database:
+    external: true
