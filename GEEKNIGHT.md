@@ -4,6 +4,8 @@ docker build -t hello-world -f dockerfile .
 
 docker run -p 8080:80 hello-world
 
+localhost:8080
+
 docker ps
 
 docker exec -it <container-name> sh
@@ -13,6 +15,8 @@ ls
 ###### Start the Docker-compose #S
 ```
 docker compose up
+
+localhost:81
 
 docker compose down
 
