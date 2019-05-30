@@ -15,11 +15,6 @@ services:
         aliases:
           - db
     deploy:
-      labels:
-        #com.docker.ucp.access.label: "path"
-        com.docker.lb.hosts: master01
-        com.docker.lb.network: postgres_password
-        com.docker.lb.port: 5432
       replicas: 1
       resources:
         limits:

@@ -13,11 +13,6 @@ services:
         aliases:
           - ui
     deploy:
-      labels:
-        #com.docker.ucp.access.label: "path"
-        com.docker.lb.hosts: master01
-        com.docker.lb.network: development
-        com.docker.lb.port: 8080
       replicas: 1
       resources:
         limits:

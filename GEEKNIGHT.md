@@ -87,7 +87,7 @@ docker stack deploy -c 02-ui-demo.yml development
 docker stack deploy -c 01-api-demo.yml development
 
 ```
-###### #S
+###### #G
 ```
 docker stack ls
 
@@ -100,12 +100,16 @@ docker ps
 docker exec -it <api-container-id> bash
 
 ```
-###### Ping from api container 
+###### Ping from api container #S
 ```
 ping api
+
+ping db
+
+ping ui
 ```
 
-###### To show the output in browser 
+###### To show the output in browser #S
 ```
 192.168.99.100:8080
 ```
