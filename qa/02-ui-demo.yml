@@ -1,0 +1,28 @@
+#Contacts-Ui Stackfile
+version: '3.5'
+services:
+  ui:
+    image: devopsbyexample/contacts-ui
+    ports:
+      - "8080:80"
+    environment:
+      API_HOST: api
+      API_PORT: 3000
+    networks:
+      qa:
+        aliases:
+          - ui
+    deploy:
+      labels:
+        #com.docker.ucp.access.label: "path"
+        com.docker.lb.hosts: master01
+        com.docker.lb.network: qa
+        com.docker.lb.port: 8080
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2048M
+networks:
+  qa:
+    external: true

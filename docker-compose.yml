@@ -7,9 +7,5 @@ services:
       - "81:80"
     environment:
       - PasswordApi:Url=http://password-api:5001
-    deploy:
-      replicas: 5
   password-api:
-    image: sixeyed/password-api:v2
-    deploy:
-      replicas: 10
+    image: sixeyed/password-api:v1

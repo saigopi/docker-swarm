@@ -9,14 +9,14 @@ services:
       API_HOST: api
       API_PORT: 3000
     networks:
-      database:
+      staging:
         aliases:
           - ui
     deploy:
       labels:
         #com.docker.ucp.access.label: "path"
         com.docker.lb.hosts: master01
-        com.docker.lb.network: database
+        com.docker.lb.network: staging
         com.docker.lb.port: 8080
       replicas: 1
       resources:
@@ -24,5 +24,5 @@ services:
           cpus: '1'
           memory: 2048M
 networks:
-  database:
+  staging:
     external: true

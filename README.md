@@ -28,6 +28,7 @@ Initialize Docker Swarm master
 ```
 docker swarm init --advertise-addr 192.168.99.100
 ```
+
 #####Dockerfile 
 ```
 #EXAMPLE-1
@@ -44,6 +45,16 @@ EXPOSE 80
 
 ENTRYPOINT apachectl -DFOREGROUND
 ```
+#######To build image using dockerfile
+```
+docker build -t <image-name> -f dockerfile .
+
+docker ps
+
+docker exec -it <container-name> sh
+
+ls
+```
 
 #####Docker-compose file  Demo-01
 ######note: Run this compose file where the Dockerfile need to be present.  
@@ -57,18 +68,108 @@ services:
       - "81:80"
     environment:
       - PasswordApi:Url=http://password-api:5001
+    deploy:
+      replicas: 2
   password-api:
     image: sixeyed/password-api:v1
+    deploy:
+      replicas: 4
+
 ```
 ###### Start the Docker-compose 
 ```
-Docker compose up -f docker-compose.yml
+docker compose up
+
+docker compose down
+
+docker ps
+```
+
+#######To set up the docker swarm 
+```
+docker-machine create --driver virtualbox master01
+docker-machine create --driver virtualbox worker01
+docker-machine create --driver virtualbox worker02
+docker-machine create --driver virtualbox worker03
+
+```
+###### To setup the environment variables
+
+```
+docker-machine ssh master01
+
+docker-machine ssh worker01
+
+docker-machine ssh worker02
+
+docker-machine ssh worker03
+
+```
+
+####### Initialize Docker Swarm master
+```
+docker swarm init --advertise-addr 192.168.99.100
+```
+
+###### Get the swarm token from the master 
+```
+docker swarm join-token worker
+```
+
+###### Put the token generated in the worker
+
+###### Create a network in the master
+```
+docker network create -d overlay  development
+
+docker network ls
+```
+
+###### Create a secret in the master
+```
+printf "test" | docker secret create dev_env_appdb01 -
+
+docker secret ls
+```
+
+###### Create a config in the master
+```
+docker config create dev-config config.js 
+
+docker config ls
 ```
 
 ###### Start the Docker-stack using the same compose file
 
 ```
-docker stack deploy -c docker-compose.yml web
+docker stack deploy -c 01-db-demo.yml development
+
+docker stack deploy -c 02-ui-demo.yml development
+
+docker stack deploy -c 01-api-demo.yml development
+
+```
+###### 
+```
+docker stack ls
+
+docker service ls
+
+docker service ps <service-id>
+
+docker ps
+
+docker exec -it <container-id> bash
+
+```
+###### Ping from api container
+```
+ping api
+```
+
+###### To show the output in browser
+```
+192.168.99.100:8080
 ```
 ###### Stack File Demo-02
 ```

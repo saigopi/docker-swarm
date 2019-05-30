@@ -11,15 +11,15 @@ services:
     secrets:
       - db_password
     networks:
-      database:
+      development:
         aliases:
           - api
     deploy:
       labels:
         #com.docker.ucp.access.label: "path"
         com.docker.lb.hosts: 192.168.99.100
-        com.docker.lb.network: database
-      replicas: 1
+        com.docker.lb.network: development
+      replicas: 5
       resources:
         limits:
           cpus: '1'
@@ -30,6 +30,6 @@ secrets:
     name: dev_env_appdb01
 
 networks:
-  database:
+  development:
     external: true
 

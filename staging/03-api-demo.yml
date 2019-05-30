@@ -1,0 +1,35 @@
+#Contacts-Api Stackfile
+version: "3.5"
+services:
+  api:
+    image: devopsbyexample/contacts-api
+    environment:
+      DB_HOSTNAME: db
+      DB_NAME: contacts
+      DB_USERNAME: test
+      DB_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_password
+    networks:
+      staging:
+        aliases:
+          - api
+    deploy:
+      labels:
+        #com.docker.ucp.access.label: "path"
+        com.docker.lb.hosts: 192.168.99.100
+        com.docker.lb.network: staging
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2048M
+secrets:
+  db_password:
+    external: true
+    name: dev_env_appdb01
+
+networks:
+  staging:
+    external: true
+
